@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.css": "/humeradev/text-repo.git/static/css/main.31d6cfe0.css",
+    "main.js": "/humeradev/text-repo.git/static/js/main.6e6aca8c.js",
+    "index.html": "/humeradev/text-repo.git/index.html",
+    "main.6e6aca8c.js.map": "/humeradev/text-repo.git/static/js/main.6e6aca8c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.6e6aca8c.js"
+  ]
+}
