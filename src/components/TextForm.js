@@ -1,19 +1,28 @@
 import React, { useState } from "react";
 
 export default function TextForm(props) {
-  const [text, setText] = useState(" ");
+  const [text, setText] = useState("");
 
   const handleUpperClick = () => {
     setText(text.toUpperCase());
+    props.showAlert("Converted to uppercase!", "success");
   };
 
   const handleLowerClick = () => {
     setText(text.toLowerCase());
-  };
-  const clearClick = () => {
-    setText("");
+    props.showAlert("Converted to lowercase!", "success");
   };
 
+  const clearClick = () => {
+    setText("");
+    props.showAlert("Text cleared!", "success");
+  };
+
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(text).then(() => {
+      props.showAlert("Text copied to clipboard!", "success");
+    });
+  };
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -21,11 +30,12 @@ export default function TextForm(props) {
 
   return (
     <>
-      <div className="container" style={{
-  
-  color: props.mode === "dark" ? "white" : "black"
-}}
->
+      <div
+        className="container"
+        style={{
+          color: props.mode === "dark" ? "white" : "black",
+        }}
+      >
         <h1>{props.heading || "Default Heading"}</h1>
         <textarea
           value={text}
@@ -34,10 +44,9 @@ export default function TextForm(props) {
           id="exampleFormControlTextarea1"
           rows="8"
           style={{
-            background: props.mode === "dark" ? "#525252" : "white",
+            background: props.mode === "dark" ? "#01796f" : "white",
             color: props.mode === "dark" ? "white" : "black",
           }}
-          
         ></textarea>
         <button
           onClick={handleUpperClick}
@@ -56,21 +65,34 @@ export default function TextForm(props) {
         <button
           onClick={clearClick}
           type="button"
-          className="btn mt-2 btn-primary mx-2"
+          className="btn mt-2 btn-danger mx-2"
         >
           Clear Text
         </button>
-       
-        
+        <button
+          onClick={handleCopyClick}
+          type="button"
+          className="btn mt-2 btn-success mx-2"
+        >
+          Copy to Clipboard
+        </button>
       </div>
-      <div className="container my-2">
-        <h1>Your Text Summary</h1>
+      <div className="container my-2  " style={{
+            
+            color: props.mode === "dark" ? "white" : "#01796f",
+          }}>
+        <h2>Your Text Summary</h2>
         <p>
-          {text.split(/\s+/).filter((word) => word.length > 0).length} words, {text.length} characters
+          {text.split(/\s+/).filter((word) => word.length > 0).length} words,{" "}
+          {text.length} characters
         </p>
-        <p>{0.008 * text.split(/\s+/).filter((word) => word.length > 0).length} Minutes to read</p>
+        <p>
+          {0.008 *
+            text.split(/\s+/).filter((word) => word.length > 0).length}{" "}
+          Minutes to read
+        </p>
         <h3>Preview</h3>
-        <p>{text}</p>
+        <p>{text.length > 0 ? text : "Nothing to preview!"}</p>
       </div>
     </>
   );
