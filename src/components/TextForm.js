@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { jsPDF } from "jspdf";
 
 export default function TextForm(props) {
   const [text, setText] = useState("");
@@ -27,6 +28,13 @@ export default function TextForm(props) {
   const handleChange = (e) => {
     setText(e.target.value);
   };
+  const handleDownloadPdf = () => {
+    const doc = new jsPDF();
+
+   
+    doc.text(text, 10, 10);
+    doc.save("downloaded-text.pdf");
+  };
 
   return (
     <>
@@ -36,7 +44,7 @@ export default function TextForm(props) {
           color: props.mode === "dark" ? "white" : "black",
         }}
       >
-        <h1>{props.heading || "Default Heading"}</h1>
+        <h1 className="mb-4">{props.heading || "Default Heading"}</h1>
         <textarea
           value={text}
           onChange={handleChange}
@@ -76,6 +84,7 @@ export default function TextForm(props) {
         >
           Copy to Clipboard
         </button>
+        <button  className="btn mt-2 btn-primary" onClick={handleDownloadPdf}>Download as PDF</button>
       </div>
       <div className="container my-2  " style={{
             
