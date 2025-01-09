@@ -30,10 +30,9 @@ export default function TextForm(props) {
   };
   const handleDownloadPdf = () => {
     const doc = new jsPDF();
-
-   
     doc.text(text, 10, 10);
     doc.save("downloaded-text.pdf");
+   
   };
 
   return (
@@ -57,6 +56,7 @@ export default function TextForm(props) {
           }}
         ></textarea>
         <button
+          disabled={text.trim() === ""}
           onClick={handleUpperClick}
           type="button"
           className="btn mt-2 btn-primary"
@@ -64,6 +64,7 @@ export default function TextForm(props) {
           Convert to Uppercase
         </button>
         <button
+          disabled={text.trim() === ""}
           onClick={handleLowerClick}
           type="button"
           className="btn mt-2 btn-primary mx-2"
@@ -71,6 +72,7 @@ export default function TextForm(props) {
           Convert to Lowercase
         </button>
         <button
+          disabled={text.trim() === ""}
           onClick={clearClick}
           type="button"
           className="btn mt-2 btn-danger mx-2"
@@ -78,13 +80,14 @@ export default function TextForm(props) {
           Clear Text
         </button>
         <button
+          disabled={text.trim() === ""}
           onClick={handleCopyClick}
           type="button"
           className="btn mt-2 btn-success mx-2"
         >
           Copy to Clipboard
         </button>
-        <button  className="btn mt-2 btn-primary" onClick={handleDownloadPdf}>Download as PDF</button>
+        <button  className="btn mt-2 btn-primary" disabled={text.trim() === ""} onClick={handleDownloadPdf}>Download as PDF</button>
       </div>
       <div className="container my-2  " style={{
             
